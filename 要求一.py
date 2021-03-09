@@ -1,7 +1,6 @@
 #網路串接公開資料
 import urllib.request as request
 import json
-import re
 src="https://padax.github.io/taipei-day-trip-resources/taipei-attractions.json"
 with request.urlopen(src) as response:
     data=json.load(response)
