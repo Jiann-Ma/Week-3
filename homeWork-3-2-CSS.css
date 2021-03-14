@@ -1,0 +1,125 @@
+body{
+    margin: 0px;
+    background-color: #F7A278; 
+}
+/*nav樣式設定*/
+nav{
+    display: flex;
+    background-color: #6DD3CE; 
+}
+nav>.firstLine{
+    flex: none; /* none代表這個項目無法自動縮放 */
+    margin-right: auto;
+    color:#351E29;
+    font-weight: bold; 
+    font-size: 20px; 
+    font-family: Microsoft JhengHei;
+}
+nav>.firstLine-items{    /*有加「>」，代表我只抓nav底下的第一層的firstLine-items; 沒有加「>」，代表我抓nav底下的全部firstLine-items;*/
+    flex:none; 
+    margin-left: auto;  /* 跟左側元素相連自動把空白補填在你元素的左側，所以就隔開了 */
+    color:#351E29;
+    font-weight: bold; 
+    font-size: 20px;
+    font-family: Microsoft JhengHei;
+}
+.welcome{
+    word-break: normal;
+    flex-wrap: wrap;
+    text-align: center;
+    background-color:#C8E9A0;
+    font-weight: bold; 
+    font-size: 40px; 
+    text-align: center; 
+    font-family:Microsoft JhengHei; 
+    font-style:italic;
+    height: 300px; 
+    line-height: 300px; 
+    padding: 10px; 
+    margin: 0px;
+}
+.img1{
+    flex:none;
+    max-width: 30px;
+    margin-left: auto;
+    display: none;
+}
+main{ /* 容器 */
+    display: flex; 
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 1200px;
+    justify-content: center; /*這是main裡面的東西置中*/
+    align-items: center;
+    background-color: #F7A278; 
+    margin: auto; /*只編編對外要auto，所以main會置中*/
+}
+main>.item{ /* 項目 */              /*有加「>」，代表我只抓main底下的第一層的item; 沒有加「>」，代表我抓main底下的全部item;*/
+    flex:none;
+    width:25%;
+    /* margin: auto; 因為width已經25%了，所以再怎麼條margin-left or right也沒用 */
+    font-weight: bold; 
+    font-size: 20px; 
+    text-align: center; 
+    font-family:Microsoft JhengHei;
+    background-color: azure;
+    margin-top: 10px;
+    height: 300px;     /*調成300px的原因是因為要讓圖片+文字敘述排整齊*/
+}
+.img2{ /* 項目 */
+    flex: none;
+    width: 100%;
+    height: 200px;
+    /* margin: auto; 因為width已經100%了，所以再怎麼條margin-left or right也沒用 */
+}
+@media (max-width: 1200px) and (min-width: 600px){
+    main{
+        width: 90%;     /*縮到1200以下的時候，白背景會超過圖片大小。所以不要設寬度，或者設定100%。width:100%就可以跟著父容器了*/
+        /* margin: auto; 這邊設定了margin也沒有用，因為當初第55行就先設定好了*/
+    }
+    main>.item{
+        width: 48%;
+        margin: 2px;
+    }
+    main>.img2{
+        width: 100%;
+    }
+    nav>.firstLine-items{
+        display: block;
+        margin-left: auto;
+    }
+}   
+
+@media (max-width: 600px){
+    main{
+        width: 90%;
+    }
+    main>.item{
+        width: 100%;
+    }
+    main>.img2{
+        width: 100%;
+    }
+    nav>.firstLine-items{
+        display: none;
+    }
+    nav>.hamburger{
+        display: block;
+    }
+    nav>.hamburger>.img1{  /*因為只有一個img1，所以可以直接用.img1*/ /*因為img1在叫做hamburger的div裡面，所以兩個要同時變成block*/
+        display: block;
+    }
+    .welcome{
+        word-wrap: break-word;
+        line-height:150px
+    }  
+}
+
+/*原因應該是說，我們一開始不是有設定line-height:300px? 為了要讓他置中，但是到了600後，他會阻礙斷行
+12:33
+他原本要斷行，但是line-height==容器高度，所以不給他斷
+12:33
+所以小於600後，改成150px，原本的一半，讓他多出一半的斷行空間
+12:36
+因為welcome的高度是300
+line-height:300px，才會在welcome裡面置中*/

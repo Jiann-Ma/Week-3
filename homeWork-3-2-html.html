@@ -1,0 +1,76 @@
+<!-- https://jiann-ma.github.io/Week-1/homeWork-1-1.html  -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    </meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <!--為了不要做縮放-->
+    <title>第三週作業</title>
+    <link href="homeWork-3-2-CSS.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+
+<body>
+    <nav>
+        <div class="firstLine"><u>健騰的第三週作業</u></div>
+        <div class="firstLine-items">
+            <span style="margin:10px">Item1</span>
+            <span style="margin:10px">Item2</span>
+            <span style="margin:10px">Item3</span>
+            <span style="margin:10px">Item4</span>
+        </div>
+        <div class="hamburger"><img class="img1"
+                src="https://github.com/Jiann-Ma/Week-1/blob/main/hanburger.png?raw=true"></div>
+    </nav>
+
+    <div class="welcome">台北好好玩！</div>
+    <!--Flex解決：並排切欄-->
+    <!--
+            RWD解決：欄位變化
+            1200px 以上：4欄，固定尺寸
+            600px~1200px：2欄(90%)，彈性尺寸
+            600px 以下：1欄，彈性尺寸
+        -->
+    <main>
+        
+    </main>
+    <script>
+        const section = document.querySelector('section')
+        let requestURL = 'https://padax.github.io/taipei-day-trip-resources/taipei-attractions.json';
+        let request = new XMLHttpRequest();
+        request.open('GET', requestURL);     //open是一個request
+        request.responseType = 'json';
+        request.send();
+
+        request.onload = function () {
+            const spots = request.response;  //取得景點資料
+            //console.log(spots.result.results[0].stitle);
+            showSpots(spots);
+        }
+        
+        let main = document.getElementsByTagName("main")[0]; //抓main這個父容器，不用create，所有內容要塞在裡面。
+
+        function showSpots(obj) {
+            const spotsDetails = obj.result.results;
+            const spotsCount = obj.result.count;          //共319個
+            for (let i = 0; i < 8; i++) {
+
+                let item = document.createElement("div")  //創造1個div標籤(區塊)
+                item.classList.add("item")                //在item這個div標籤，新增一個名為item的class
+                main.appendChild(item)                    //在main父容器中，appendChild "item"
+        
+                let img = document.createElement("img")   //創造1個img標籤
+                img.classList.add("img2")                 //在img這個img標籤，新增一個img2的class
+                img.setAttribute("src",'http' + spotsDetails[i].file.split('http')[1])  //為img這個img標籤，設置Attribute。該Attribute為src，接圖片的URL
+                item.appendChild(img)                     //item是main的子容器，但item是img跟title的父容器。換句話說，對img來說，在item父容器中，appendChild "img"
+
+                let title = document.createElement("p")   //創造1個p標籤
+                title.textContent = spotsDetails[i].stitle//因為p標籤沒有Attribute可以設置，所以直接使用textContent，接stitle的文字敘述
+                item.appendChild(title)                   //item是main的子容器，但item是img跟title的父容器。換句話說，對img來說，在(已經含有img子容器的)item父容器中，appendChild "title"
+            }
+        }    
+    </script>
+</body>
+
+</html>
